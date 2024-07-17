@@ -1,0 +1,13 @@
+fitz
+shapely
+langchain-community
+google.generativeai
+SentenceTransformer
+langchain_huggingface
+langchain_openai
+langchain_experimental
+open_clip_torch 
+torch
+chromadb
+IPython
+pymupdf4llm
