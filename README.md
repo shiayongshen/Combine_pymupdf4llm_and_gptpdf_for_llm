@@ -1,7 +1,5 @@
 # 基於Pymupdf與gptpdf之LLM parser
 
-我們結合了Pymupdf and gptpdf的優點，提出了一個更好的pdf解析器，適合用來處理有圖片、表格、文本的資料
-
 2024-07-17 16:32:24,654 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
 2024-07-17 16:32:26,111 - INFO - parse page: 0
 2024-07-17 16:32:29,639 - INFO - parse page: 1
