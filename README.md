@@ -17,6 +17,24 @@ Image為GPTPDF所得到的圖片座標(有可能是圖片或是表格)，Table�
 
 * 33頁的東京都維基百科耗時8分鐘，PDF Parser的部分2分鐘，其餘的為LLM推理時間
 
+## Prompt
+### Image Prompt
+```
+role_prompt = """你是一個圖片摘要生成的機器人"""
+local_prompt = """你是一個圖片摘要生成的機器人"""
+```
+### Table prompt
+```
+table_role_prompt= """
+你現在是一位專注於製作HTML表格的工程師，你的任務是要畫出一個可以顯示的表格。
+"""
+table_local_prompt = """
+你現在是一個製作HTML表格的工程師，你的任務是將圖片中表格的架構以及markdown的表格中的內容作結合，你必須要做到:
+1.請專注在圖片表格的結構，完整的表現出原本的架構。
+2.請使用Markdown中的文字來填入表格中。
+3.請注意合併儲存格，讓結構完整。                
+"""
+```
 ## 成果
 
 2024-07-17 16:36:22,271 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
