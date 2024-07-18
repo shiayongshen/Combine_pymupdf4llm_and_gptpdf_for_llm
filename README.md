@@ -1,41 +1,5 @@
-# 基於Pymupdf與gptpdf之LLM parser
+# 基於Pymupdf與gptpdf之LLM PDF parser
 
-2024-07-17 16:32:24,654 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-2024-07-17 16:32:26,111 - INFO - parse page: 0
-2024-07-17 16:32:29,639 - INFO - parse page: 1
-2024-07-17 16:32:36,066 - INFO - parse page: 2
-2024-07-17 16:32:39,622 - INFO - parse page: 3
-2024-07-17 16:32:42,251 - INFO - parse page: 4
-2024-07-17 16:32:57,173 - INFO - parse page: 5
-2024-07-17 16:33:01,651 - INFO - parse page: 6
-2024-07-17 16:33:06,888 - INFO - parse page: 7
-2024-07-17 16:33:09,296 - INFO - parse page: 8
-2024-07-17 16:33:11,292 - INFO - parse page: 9
-2024-07-17 16:33:13,107 - INFO - parse page: 10
-2024-07-17 16:33:14,428 - INFO - parse page: 11
-2024-07-17 16:33:18,485 - INFO - parse page: 12
-2024-07-17 16:33:20,849 - INFO - parse page: 13
-2024-07-17 16:33:22,686 - INFO - parse page: 14
-2024-07-17 16:33:26,655 - INFO - parse page: 15
-2024-07-17 16:33:29,670 - INFO - parse page: 16
-2024-07-17 16:33:33,366 - INFO - parse page: 17
-2024-07-17 16:33:39,612 - INFO - parse page: 18
-2024-07-17 16:33:44,388 - INFO - parse page: 19
-2024-07-17 16:33:47,076 - INFO - parse page: 20
-2024-07-17 16:33:51,014 - INFO - parse page: 21
-2024-07-17 16:33:52,778 - INFO - parse page: 22
-2024-07-17 16:33:55,178 - INFO - parse page: 23
-2024-07-17 16:33:58,155 - INFO - parse page: 24
-2024-07-17 16:34:00,486 - INFO - parse page: 25
-2024-07-17 16:34:02,948 - INFO - parse page: 26
-2024-07-17 16:34:05,286 - INFO - parse page: 27
-2024-07-17 16:34:07,632 - INFO - parse page: 28
-2024-07-17 16:34:10,973 - INFO - parse page: 29
-2024-07-17 16:34:13,722 - INFO - parse page: 30
-2024-07-17 16:34:17,067 - INFO - parse page: 31
-2024-07-17 16:34:19,050 - INFO - parse page: 32
-2024-07-17 16:34:24,624 - INFO - parse page: 33
-image: 1_0.png
 2024-07-17 16:35:53,607 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 這是一張關於東京都的圖片摘要。圖片包含以下內容：
 
@@ -173,7 +137,7 @@ table:
 2024-07-17 16:36:34,824 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 以下是根據圖片中的表格架構以及提供的Markdown文字內容所製作的HTML表格：
 
-```html
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -404,8 +368,7 @@ table:
         </tbody>
     </table>
 </body>
-</html>
-```
+
 
 這個HTML表格完整地反映了圖片中的表格結構，並且填入了提供的Markdown文字內容。
 image:
