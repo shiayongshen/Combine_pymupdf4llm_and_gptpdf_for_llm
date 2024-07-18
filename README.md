@@ -1,4 +1,23 @@
 # 基於Pymupdf與gptpdf之LLM PDF parser
+## 想法
+將PDF轉換成Markdown時，發現Pymupdf4llm在轉換成表格時所產生的座標是錯誤的，gptpdf在擷取表格時，座標會是對的，另外在擷取圖片的部分gptpdf也比Pymupdf4llm的表現來的優異，因此在思考是否能夠將兩套件做整合，結合Pymupdf4llm能夠轉成Markdown的格式，以及gptpdf優異的擷取圖片表現，提升後續轉換成向量的品質，進而提升搜索的效率。
+![image](https://github.com/shiayongshen/Combine_pymupdf4llm_and_gptpdf_for_llm/blob/main/process/process.png)
+## 實際流程
+1.	使用GPTPDF得到表格與圖片的PNG檔案，會回傳每頁的圖片座標以及圖片存放位址(image list)
+2.	使用PymuPDF得到一個Page chunk = True的文本以及Page chunk = False的純文本(因為若為False的話則不會顯示表格座標，若為True則會顯示，但因為希望文字不要被分頁切斷，因此純文字處理時會用Page chunk = False的文本(設一個為True content一個為False content。
+3.	先處理圖片資料此時會有三種狀況(以Pymupdf判斷表格數為主)
+(1)	該頁只有圖片
+則將該頁的image list丟進LLM做Summary。
+(2)	該頁只有表格
+則使用正則表達式取出True content的markdown表格，並提供Image list中的圖片，一起丟進去LLM請他生成HTML的表格程式碼，最後在將False content中的表格部分的文字去除，如此一來純文字中就不會有表格的文字，避免後續Chunk時不小心把表格切錯。
+(3)	該頁兩者皆有
+透過座標位置來判斷該圖片是否為表格，由於Pymupdf與GPTPDF的座標邏輯皆為(x1,y1,x2,y2)，且Pymupdf會分別給我們表格座標以及圖片座標，但如先前所述(x2,y2)並不準確，因此主要透過(x1,y1)的位置來判斷這張圖片是否為表格，且表格與圖片不容易重疊的特性，拿Pymupdf中的表格座標去尋找與其(x1,y1)最相近的(差值最小)且面積最相近的(差值最小)，以(x1,y1)座標的差值為優先，若超過某個域值才會再找面積最相近，若還是超過某個域值則放棄，將該表格當作圖片處理，該張圖片即為GPTPDF所擷取的表格圖片，接著就分別針對表格與圖片處理(1)及(2)。
+![image](https://github.com/shiayongshen/Combine_pymupdf4llm_and_gptpdf_for_llm/blob/main/process/table.png)
+Image為GPTPDF所得到的圖片座標(有可能是圖片或是表格)，Table為Pymupdf所得到的表格座標，並拿出(x1,y1)的座標來比較，可以看到Image_1與Table_A的差值最小，因此判定Image_1和Table_A是同一張表格。
+
+* 33頁的東京都維基百科耗時8分鐘，PDF Parser的部分2分鐘，其餘的為LLM推理時間
+
+## 成果
 
 2024-07-17 16:36:22,271 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 
@@ -424,3 +443,8 @@
 </html>
 
 這段HTML代碼將會生成一個表格，表格的結構和圖片中的表格一致，並且填入了提供的Markdown文字內容。
+
+### Reference
+
+https://github.com/pymupdf/PyMuPDF
+https://github.com/CosmosShadow/gptpdf
